@@ -19,6 +19,13 @@ For instance, in a browser, multiple tabs can be different threads. MS
 word use multiple threads, one thread to format the text, other to process
 inputs, etc..
 
+```
+/** 
+ * Threads -> concurrent execution of 2 or more threads in
+ * the same period of time.
+*/
+
+```
 
 Threads **operates faster** than processes due to the following reasons:
 1. Threads creation is much faster.
