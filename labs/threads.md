@@ -39,6 +39,3 @@ multithreading by the language standarts. But, ofcourse is a POSIX standard
 for threads. Implementation of `pthread` is available with `gcc` compiler.
 
 #### Check notes:
-- full notes[https://ceidnotes.net/notes/%CE%9B%CE%B5%CE%B9%CF%84%CE%BF%CF%85%CF%81%CE%B3%CE%B9%CE%BA%CE%AC+%CE%A3%CF%85%CF%83%CF%84%CE%AE%CE%BC%CE%B1%CF%84%CE%B1+%CE%99/%CE%9B%CE%B5%CE%B9%CF%84%CE%BF%CF%85%CF%81%CE%B3%CE%B9%CE%BA%CE%AC_%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B1_%CE%A6%CF%81%CE%BF%CE%BD%CF%84.pdf]
-
-- System Programming with C and Unix[https://eclass.hua.gr/modules/document/file.php/DIT136/Adam%20Hoover-System%20Programming%20with%20C%20and%20Unix-Addison-Wesley%20%282009%29.pdf]
