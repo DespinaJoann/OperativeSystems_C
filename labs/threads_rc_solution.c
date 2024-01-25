@@ -7,6 +7,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <pthread.h>  
 
 # define MAX_ITERATIONS 5
