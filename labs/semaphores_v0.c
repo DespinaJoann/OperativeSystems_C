@@ -19,7 +19,7 @@ void main () {
     sem_t *mysem;
     mysem = sem_open(sem_name, O_CREAT,0600, 1);
 
-    // Open file with file descriptor for read or create or append
+    // Open file with file descriptor for read or write or create or append
     int fd = open("test.txt", O_RDWR | O_CREAT | O_APPEND , 00600);
     int pid = fork();
     
