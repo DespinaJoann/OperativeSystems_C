@@ -13,22 +13,33 @@
 # define N_LINES  100   // 100 lines
 # define N_COLMS   50   // the number of the actuall data
 
+long int global_sum =  0;
 
-
-void display (int *data, int n) {
+/** Display the column's values */
+void display (int *d, int n) {
    
-    int i, c=0, sum=0;
-
+    int i, c=0, s=0;
     printf("Data:\n -> [\n");
+
     for(i=0; i<n; i++) {
-        printf("%d ,",data[i]);
-        sum+=data[i]; c++;
-        if (c==10) { c=0; printf("\n");}
+        printf("%d ,",d[i]); s+=d[i]; c++;
+        if (c==10) { c=0;  printf("\n"); }
     }
+
     printf(" ]\n");
-    printf("%d elements scaned and the sum of them is : %d\n",i,sum);
+    printf("%d elements scanned and the sum of them is : %d\n",i,s);
 }
 
+void display_stats (int *d, int n) {   
+    int i,s=0;
+    for(i=0; i<n; i++) s+=d[i];
+    printf("%d elements scanned and the sum of them is : %d\n",i,s);
+
+    global_sum += s;
+}
+
+
+/** Write random data to the file with csv format */
 int writer (char *fn) {
 
     int fd = open(fn, O_RDWR | O_APPEND | O_CREAT, 0644);
@@ -39,8 +50,8 @@ int writer (char *fn) {
 
     for (int i=0; i<N_LINES; i++) {
         for (int j=0; j<N_COLMS; j++) {
-            num = rand() % (100+1);               // create new random number 
-            wrb = write(fd,&num, sizeof(int));    // write new random number to the file
+            num = i+j; //rand() % (100+1);       
+            wrb = write(fd,&num, sizeof(int));    
             if (wrb<0) return -1;    
             wrb = write(fd,&space, sizeof(char)); // add the "" as the columns separator
             if (wrb<0) return -1;    
@@ -51,7 +62,7 @@ int writer (char *fn) {
     return 0;
 }
 
-
+/** Perform Scann by columns */
 int scan_columns (int fd, int ncols, int *buffer) {
     
     int rbr,num; char space;
@@ -67,23 +78,29 @@ int scan_columns (int fd, int ncols, int *buffer) {
     return 0;
 }
 
+/** Perform Scann by lines */
+int scan_lines (int fd, int nl, int nc) {
+    
+    int i, sc;
+    int *columns;
+    for (i=0; i<nl; i++) {
+        columns = (int *)malloc(nc*sizeof(int));
+        sc = scan_columns(fd, nc, columns);
+        if (sc<0)  return -1; 
+        else display_stats(columns,nc);
+        free(columns);
+    }
+    
+    return 0;
+}
 
+/** Reads the data from each liune and pass them to the scanner */
 int reader (char *fn) {
 
     // Open file to Reading mode
     int fd = open(fn, O_RDONLY , 0644);
     if (fd<0) return -1;
-
-    // Create a storing buffer
-    int *buffer = (int *)malloc(N_COLMS*sizeof(int));
-    int sc = scan_columns(fd, N_COLMS, buffer);
-    if (sc<0) {
-        printf("Couldn't read this line\n");
-    }
-    else {
-        display(buffer, N_COLMS);
-    }
-    free(buffer);
+    int sc = scan_lines(fd,N_LINES,N_COLMS);
     close(fd);
 }
 
@@ -91,7 +108,16 @@ int reader (char *fn) {
 void main () {
 
     char *f = "temp.txt";
-   // int x = writer(f);
+    //int x = writer(f);
     int x = reader(f);
-    printf("Result : %d\n", x);
+    printf("Code : %d -> Sum : %ld\n", x, global_sum);
 }
+
+
+// TODO:
+// * put the **buffer to the line
+// * make it more fun using the argc,argv
+// arguments to make user choose the iteration
+// ok ... so how i will do it with threads and
+// semaphores.
+// Is needed a small reverse to structs, enums ..etc..
