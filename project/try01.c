@@ -31,7 +31,6 @@ void err (int errc) {
 void reader (char *fn) ;
 void writer () ;
 
-
 void main () {
 
     const char *newfile = "data.txt";
@@ -54,35 +53,9 @@ void main () {
 
 }
 
-
-void writer (char *fn) {
-
-    int fd = open(fn, O_RDWR | O_APPEND | O_CREAT, 0644);
-    if (fd<0) return -1;
-
-    int wrb;
-    int num;
-    int space = "";
-
-    for (int i=0; i<N_LINES; i++) {
-        for (int j=0; j<N_COLMS; j++) {
-            num = rand() % (100+1);               // create new random number 
-            wrb = write(fd,&num, sizeof(int));    // write new random number to the file
-            if (wrb<0) return -1;    
-            wrb = write(fd,&space, sizeof(char)); // add the "" as the columns separator
-            if (wrb<0) return -1;    
-        }
-    }
-
-    close(fd);
-
-}
-
-
-
-
 // *
-// : read 1 line 
+// : use 4 threads
+// each of the threads reads 1 line at the time until the file ends 
 // lock mutex
 // sum ++;
 // unlock mutex
