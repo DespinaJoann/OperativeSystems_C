@@ -1,5 +1,6 @@
 ## Operative Systems and C Languge.
 A Gentle Introduction to OS..
+The current repository is on the development stage. To look the developing code check the `develop` branch
 
 ### Books :
 - [Operating Systems A.Tanenbum](https://csc-knu.github.io/sys-prog/books/Andrew%20S.%20Tanenbaum%20-%20Operating%20Systems.%20Design%20and%20Implementation.pdf)
