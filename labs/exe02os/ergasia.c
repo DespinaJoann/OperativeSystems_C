@@ -41,7 +41,6 @@ void main () {
     // Define Semaphore and Mutex
     const char *sem_name = "myIt2022112";
     sem_t *my_sem = sem_open(sem_name, O_CREAT,0600, 1);
-
     // Define the seed for the Random generator
     srand(time(NULL));
 

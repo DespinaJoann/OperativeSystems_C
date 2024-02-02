@@ -35,14 +35,11 @@ int curr_line = 0;
 void main () {
 
     // Define Working file and Initialize random seed
-    char * f = "./t2.txt"; srand(time(NULL));
+    char * f = "./demo_data.txt"; srand(time(NULL));
 
     // Define Semaphore and Mutex
     const char *sem_name = "myIt2022112";
     sem_t *my_sem = sem_open(sem_name, O_CREAT,0600, 1);
-
-    // Define the seed for the Random generator
-    srand(time(NULL));
 
     // Open a common shared file descriptor
     int fd  = open(f, O_RDWR | O_CREAT | O_APPEND , 00600);
