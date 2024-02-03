@@ -45,6 +45,17 @@ void reader () {
         // the critical section
         signal(r_lock);
     }
+
+    // Current reader performs reading here ...
+    // ...
+    wait(r_lock);
+    readcount--;    // a reader wants to leave;
+
+    if (readcount==0) {
+        // then ..no readers left in the critical section
+        signal(rw_schedualer);  // Inform the writer that can enter
+        signal(r_lock);         // Reader leaves
+    }
 }
 void main () {
 
